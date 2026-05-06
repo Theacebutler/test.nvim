@@ -10,19 +10,22 @@ local function getTestCommand(ft)
 	elseif ft == "tsx" then
 		return "bun run test"
 	end
-	vim.notify("No test command found for filetype " .. ft, vim.log.levels.ERROR)
-	return "echo 'No test command found for filetype " .. ft .. "'"
+	vim.notify("No test command found for filetype '" .. ft .. "'", vim.log.levels.ERROR)
+	return false
 end
 
 M.open = function()
 	local buf = vim.api.nvim_create_buf(false, true)
 	local ft = vim.bo.filetype
+	local c = getTestCommand(ft)
+	if not c then
+		return
+	end
 	vim.cmd("vsplit")
 	local win = vim.api.nvim_get_current_win()
 	vim.api.nvim_win_set_buf(win, buf)
-	local c = getTestCommand(ft)
-	print(c)
 	vim.fn.jobstart(c, {
+
 		term = true,
 	})
 	vim.api.nvim_buf_set_keymap(buf, "n", "q", ":q<CR>", { noremap = true, silent = true })
