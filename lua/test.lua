@@ -9,9 +9,10 @@ local function getTestCommand(ft)
 		return "bun run test"
 	elseif ft == "tsx" then
 		return "bun run test"
+	else
+		vim.notify("No test command found for filetype '" .. ft .. "'", vim.log.levels.ERROR)
+		return false
 	end
-	vim.notify("No test command found for filetype '" .. ft .. "'", vim.log.levels.ERROR)
-	return false
 end
 
 M.open = function()
@@ -25,7 +26,6 @@ M.open = function()
 	local win = vim.api.nvim_get_current_win()
 	vim.api.nvim_win_set_buf(win, buf)
 	vim.fn.jobstart(c, {
-
 		term = true,
 	})
 	vim.api.nvim_buf_set_keymap(buf, "n", "q", ":q<CR>", { noremap = true, silent = true })
