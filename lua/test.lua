@@ -3,9 +3,9 @@ local M = {}
 local function getTestCommand(ft)
 	if ft == "go" then
 		return "go test  -v ./..."
-	elseif ft == "js" then
+	elseif ft == "javascript" then
 		return "bun run test"
-	elseif ft == "ts" then
+	elseif ft == "typescript" then
 		return "bun run test"
 	elseif ft == "tsx" then
 		return "bun run test"
