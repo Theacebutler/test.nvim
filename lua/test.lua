@@ -6,7 +6,7 @@ local function getTestCommand(ft)
 	elseif ft == "javascript" then
 		return "bun run test"
 	elseif ft == "typescript" then
-		return "bun run test"
+		return "bun test"
 	elseif ft == "tsx" then
 		return "bun run test"
 	else
