@@ -27,6 +27,13 @@ M.open = function()
 	vim.api.nvim_win_set_buf(win, buf)
 	vim.fn.jobstart(c, {
 		term = true,
+		on_exit = function(_, code, _)
+			if code == 0 then
+				vim.notify("Test passed", vim.log.levels.INFO)
+			else
+				vim.notify("Test failed", vim.log.levels.ERROR)
+			end
+		end,
 	})
 	vim.api.nvim_buf_set_keymap(buf, "n", "q", ":q<CR>", { noremap = true, silent = true })
 	M.win = win
